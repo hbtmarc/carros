@@ -72,6 +72,10 @@
 
   function minPrice(m) { return m.precoMin || 0; }
 
+  function slugifyPath(text) {
+    return norm(text || "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+
   function parseAnoRange(texto) {
     var anos = String(texto || "").match(/\d{4}/g) || [];
     if (!anos.length) return { inicio: null, fim: null };
@@ -142,17 +146,87 @@
       .catch(function (err) { clearTimeout(timer); throw err; });
   }
 
+  function buildWebmotorsUrl(car) {
+    var anos = parseAnoRange(car.anosIdeais);
+    var anoInicial = anos.inicio || "";
+    var precoAte = car.precoMax || "";
+
+    var marcaPath = slugifyPath(car.marca);
+    var modeloPath = slugifyPath(car.familia);
+    var basePath = "https://www.webmotors.com.br/carros-usados/mg-belo-horizonte/" + marcaPath + "/" + modeloPath;
+
+    if (anoInicial) {
+      basePath += "/de." + anoInicial;
+    }
+
+    var params = new URLSearchParams();
+    params.set("tipoveiculo", "carros-usados");
+    params.set("localizacao", "-19.9245192,-43.9352685x100km");
+    params.set("estadocidade", "Minas Gerais-Belo Horizonte");
+    params.set("marca1", String(car.marca || "").toUpperCase());
+    params.set("modelo1", String(car.familia || "").toUpperCase());
+    params.set("o", "5");
+    params.set("page", "1");
+    params.set("cambio", "Automática");
+    if (anoInicial) params.set("anode", String(anoInicial));
+    if (precoAte) params.set("precoate", String(precoAte));
+
+    return basePath + "?" + params.toString();
+  }
+
+  function buildOlxUrl(car) {
+    var anos = parseAnoRange(car.anosIdeais);
+    var anoInicial = anos.inicio || "";
+    var precoAte = car.precoMax || "";
+    var q = car.marca + " " + car.familia + " automatico";
+
+    var params = new URLSearchParams();
+    if (precoAte) params.set("pe", String(precoAte));
+    params.set("q", q);
+    params.set("gb", "2");
+    if (anoInicial) params.set("rs", String(anoInicial));
+
+    return "https://www.olx.com.br/autos-e-pecas/carros-vans-e-utilitarios?" + params.toString();
+  }
+
+  function buildMobiautoUrl(car) {
+    var anos = parseAnoRange(car.anosIdeais);
+    var anoInicial = anos.inicio || "";
+    var precoAte = car.precoMax || "";
+    var marcaPath = slugifyPath(car.marca);
+    var modeloPath = slugifyPath(car.familia);
+
+    var params = new URLSearchParams();
+    params.set("q", car.marca + " " + car.familia + " automatico");
+    if (anoInicial) params.set("ano_de", String(anoInicial));
+    if (precoAte) params.set("preco_ate", String(precoAte));
+    params.set("cambio", "automatico");
+
+    return "https://www.mobiauto.com.br/comprar/" + marcaPath + "/" + modeloPath + "?" + params.toString();
+  }
+
+  function buildICarrosUrl(car) {
+    var anos = parseAnoRange(car.anosIdeais);
+    var anoInicial = anos.inicio || "";
+    var precoAte = car.precoMax || "";
+    var marcaPath = slugifyPath(car.marca);
+    var modeloPath = slugifyPath(car.familia);
+
+    var params = new URLSearchParams();
+    params.set("q", car.marca + " " + car.familia + " automatico");
+    if (anoInicial) params.set("anode", String(anoInicial));
+    if (precoAte) params.set("precoate", String(precoAte));
+    params.set("cambio", "automatico");
+
+    return "https://www.icarros.com.br/comprar/" + marcaPath + "/" + modeloPath + "?" + params.toString();
+  }
+
   function buildUrls(car) {
-    var marca = car.marca, fam = car.familia;
-    var q = marca + " " + fam + " automatico";
     return {
-      webmotors: "https://www.webmotors.com.br/carros/estoque?tipoveiculo=carros&marca1=" +
-        encodeURIComponent(marca.toUpperCase()) + "&modelo1=" + encodeURIComponent(fam.toUpperCase()),
-      olx: "https://www.olx.com.br/autos-e-pecas/carros-vans-e-utilitarios?q=" + encodeURIComponent(q),
-      mobiauto: "https://www.mobiauto.com.br/comprar/" +
-        marca.toLowerCase().replace(/\s/g, "-") + "/" + fam.toLowerCase().replace(/\s/g, "-"),
-      icarros: "https://www.icarros.com.br/comprar/" +
-        marca.toLowerCase().replace(/\s/g, "-") + "/" + fam.toLowerCase().replace(/\s/g, "-"),
+      webmotors: buildWebmotorsUrl(car),
+      olx: buildOlxUrl(car),
+      mobiauto: buildMobiautoUrl(car),
+      icarros: buildICarrosUrl(car),
       guia: car.links.guia,
       referencia: car.links.referencia
     };
