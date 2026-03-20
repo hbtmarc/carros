@@ -1,5 +1,126 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoMatch AT — Carros Automáticos Usados</title>
+  <meta name="description" content="Compare 10 modelos de carros automáticos usados. Preços, prós, contras, versões e consulta FIPE em um só lugar.">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <h1>Teste</h1>
+
+  <!-- ====== Header ====== -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="AutoMatch AT — Início">
+        <span class="logo-icon" aria-hidden="true">🚗</span>
+        <span>AutoMatch <small>AT</small></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="#modelos" class="active">Modelos</a>
+        <a href="#notas">Notas</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ====== Hero ====== -->
+  <section class="hero" id="heroSection">
+    <div class="container">
+      <h1>Encontre seu automático ideal</h1>
+      <p class="hero-sub">Compare 10 modelos populares de automáticos usados — preços, prós, contras e consulta FIPE.</p>
+      <div class="hero-stats">
+        <span class="hero-stat">🏷️ R$ 46k–85k</span>
+        <span class="hero-stat">📅 2015–2020</span>
+        <span class="hero-stat">⚙️ AT &amp; CVT</span>
+        <span class="hero-stat">🔟 modelos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Toolbar (sticky on mobile) ====== -->
+  <section class="toolbar" id="toolbar">
+    <div class="container">
+      <div class="toolbar-row">
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="searchInput" class="search-input"
+                 placeholder="Buscar modelo, marca, câmbio..."
+                 aria-label="Buscar modelos" autocomplete="off">
+          <button id="searchClear" class="search-clear" aria-label="Limpar busca" title="Limpar busca">✕</button>
+        </div>
+        <select id="sortSelect" class="sort-select" aria-label="Ordenar lista">
+          <option value="default">Ordenar: Padrão</option>
+          <option value="price-asc">Menor preço</option>
+          <option value="price-desc">Maior preço</option>
+          <option value="name-asc">Nome A–Z</option>
+          <option value="name-desc">Nome Z–A</option>
+        </select>
+      </div>
+      <div class="chips-row" id="filterChips">
+        <button class="chip active" data-cat="todos">📦 Todos</button>
+        <button class="chip" data-cat="hatch">🚙 Hatch</button>
+        <button class="chip" data-cat="seda">🚘 Sedã</button>
+        <button class="chip" data-cat="suv">🚐 SUV</button>
+        <span class="chips-divider" aria-hidden="true"></span>
+        <button class="chip" data-cambio="cvt">⚙️ CVT</button>
+        <button class="chip" data-cambio="at">⚙️ AT Conv.</button>
+      </div>
+      <div class="filter-summary" id="filterSummary">
+        <span id="filterLabel"></span>
+        <button class="filter-summary-reset" id="filterReset">✕ Limpar filtros</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Main: card grid (list view) ====== -->
+  <main class="container" id="modelos">
+    <div class="results-bar">
+      <p class="results-count" id="resultsCount"></p>
+    </div>
+    <div class="card-grid" id="cardGrid"></div>
+  </main>
+
+  <!-- ====== Main: detail view (routed, hidden by default) ====== -->
+  <main class="container detail-page" id="detailPage" hidden>
+    <div id="detailContent"></div>
+  </main>
+
+  <!-- ====== Notes ====== -->
+  <section class="notes" id="notas">
+    <div class="container notes-inner">
+      <span class="notes-icon" aria-hidden="true">⚠️</span>
+      <div>
+        <h3>Aviso importante</h3>
+        <p>
+          Preços e informações são estimativas baseadas em pesquisas de mercado e podem
+          variar conforme região, estado do veículo e quilometragem. Este guia não substitui
+          uma avaliação mecânica profissional. Sempre faça vistoria completa e consulte a
+          Tabela FIPE atualizada antes de fechar negócio.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Footer ====== -->
+  <footer class="footer">
+    <p>AutoMatch AT &copy; 2026 — Feito para ajudar na escolha do seu automático.
+      <a href="https://veiculos.fipe.org.br/" target="_blank" rel="noopener">Tabela FIPE</a>
+    </p>
+  </footer>
+
+  <!-- ====== Pesquisar popover / bottom-sheet ====== -->
+  <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+  <div class="search-sheet" id="searchSheet" hidden>
+    <div class="sheet-header">
+      <span class="sheet-title">Pesquisar anúncios</span>
+      <button class="sheet-close" id="sheetClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
