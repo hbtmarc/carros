@@ -190,35 +190,31 @@
   }
 
   function buildMobiautoUrl(car) {
-    var anos = parseAnoRange(car.anosIdeais);
-    var anoInicial = anos.inicio || "";
     var precoAte = car.precoMax || "";
     var marcaPath = slugifyPath(car.marca);
     var modeloPath = slugifyPath(car.familia);
 
-    var params = new URLSearchParams();
-    params.set("q", car.marca + " " + car.familia + " automatico");
-    if (anoInicial) params.set("ano_de", String(anoInicial));
-    if (precoAte) params.set("preco_ate", String(precoAte));
-    params.set("cambio", "automatico");
-
-    return "https://www.mobiauto.com.br/comprar/" + marcaPath + "/" + modeloPath + "?" + params.toString();
+    return "https://www.mobiauto.com.br/comprar/carros-usados/rj-macae/" +
+      marcaPath + "/" + modeloPath + "/s/cambio-automatico/preco-ate-" + String(precoAte);
   }
 
   function buildICarrosUrl(car) {
     var anos = parseAnoRange(car.anosIdeais);
     var anoInicial = anos.inicio || "";
     var precoAte = car.precoMax || "";
-    var marcaPath = slugifyPath(car.marca);
-    var modeloPath = slugifyPath(car.familia);
+    var q = car.marca + " " + car.familia + " automatico";
+
+    var sop = "esc_4.1_";
+    if (anoInicial) sop += "-ami_" + String(anoInicial) + ".1_";
+    if (precoAte) sop += "-prf_" + String(precoAte) + ".1_";
+    sop += "-cam_true.1_-";
 
     var params = new URLSearchParams();
-    params.set("q", car.marca + " " + car.familia + " automatico");
-    if (anoInicial) params.set("anode", String(anoInicial));
-    if (precoAte) params.set("precoate", String(precoAte));
-    params.set("cambio", "automatico");
+    params.set("bid", "1");
+    params.set("q", q);
+    params.set("sop", sop);
 
-    return "https://www.icarros.com.br/comprar/" + marcaPath + "/" + modeloPath + "?" + params.toString();
+    return "https://www.icarros.com.br/ache/listaanuncios.jsp?" + params.toString();
   }
 
   function buildUrls(car) {
