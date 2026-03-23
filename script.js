@@ -147,74 +147,150 @@
   }
 
   function buildWebmotorsUrl(car) {
+    var pesquisa = (car && car.pesquisa && car.pesquisa.webmotors) || {};
     var anos = parseAnoRange(car.anosIdeais);
-    var anoInicial = anos.inicio || "";
-    var precoAte = car.precoMax || "";
-
-    var marcaPath = slugifyPath(car.marca);
-    var modeloPath = slugifyPath(car.familia);
-    var basePath = "https://www.webmotors.com.br/carros-usados/mg-belo-horizonte/" + marcaPath + "/" + modeloPath;
-
-    if (anoInicial) {
-      basePath += "/de." + anoInicial;
-    }
+    var anoMin = pesquisa.anoMin || anos.inicio || "";
+    var precoMax = pesquisa.precoMax || car.precoMax || "";
+    var marcaSlug = pesquisa.marcaSlug || slugifyPath(car.marca);
+    var modeloSlug = pesquisa.modeloSlug || slugifyPath(car.familia);
+    var fallbackQuery = pesquisa.fallbackQuery || (car.marca + " " + car.familia + " automatico belo horizonte");
+    var transmission = (pesquisa.transmissionTokens && pesquisa.transmissionTokens.webmotors) || "Automática";
+    var hasStrong = !!(marcaSlug && modeloSlug && anoMin && precoMax && transmission);
 
     var params = new URLSearchParams();
     params.set("tipoveiculo", "carros-usados");
-    params.set("localizacao", "-19.9245192,-43.9352685x100km");
     params.set("estadocidade", "Minas Gerais-Belo Horizonte");
     params.set("marca1", String(car.marca || "").toUpperCase());
     params.set("modelo1", String(car.familia || "").toUpperCase());
     params.set("o", "5");
-    params.set("page", "1");
-    params.set("cambio", "Automática");
-    if (anoInicial) params.set("anode", String(anoInicial));
-    if (precoAte) params.set("precoate", String(precoAte));
+    params.set("cambio", transmission);
+    if (anoMin) params.set("anode", String(anoMin));
+    if (precoMax) params.set("precoate", String(precoMax));
+    if (pesquisa.versaoSlug) params.set("versao", pesquisa.versaoSlug);
 
-    return basePath + "?" + params.toString();
+    if (hasStrong) {
+      var basePath = "https://www.webmotors.com.br/carros-usados/mg-belo-horizonte/" + marcaSlug + "/" + modeloSlug + "/de." + anoMin;
+      return basePath + "?" + params.toString();
+    }
+
+    var fallbackParams = new URLSearchParams();
+    fallbackParams.set("tipoveiculo", "carros-usados");
+    fallbackParams.set("estadocidade", "Minas Gerais-Belo Horizonte");
+    fallbackParams.set("q", fallbackQuery);
+    return "https://www.webmotors.com.br/carros-usados?" + fallbackParams.toString();
   }
 
   function buildOlxUrl(car) {
-    var anos = parseAnoRange(car.anosIdeais);
-    var anoInicial = anos.inicio || "";
-    var precoAte = car.precoMax || "";
-    var q = car.marca + " " + car.familia + " automatico";
+    var pesquisa = (car && car.pesquisa && car.pesquisa.olx) || {};
+    var anoMin = pesquisa.anoMin || "";
+    var precoMax = pesquisa.precoMax || car.precoMax || "";
+    var fallbackQuery = pesquisa.fallbackQuery || (car.marca + " " + car.familia + " automatico belo horizonte");
+    var transmission = (pesquisa.transmissionTokens && pesquisa.transmissionTokens.olx) || "automatico";
+    var query = [car.marca, car.familia, pesquisa.versaoSlug || "", transmission].join(" ").trim().replace(/\s+/g, " ");
+    var hasStrong = !!(pesquisa.marcaSlug && pesquisa.modeloSlug && anoMin && transmission);
 
     var params = new URLSearchParams();
-    if (precoAte) params.set("pe", String(precoAte));
-    params.set("q", q);
+    params.set("q", query || fallbackQuery);
     params.set("gb", "2");
-    if (anoInicial) params.set("rs", String(anoInicial));
+    if (precoMax) params.set("pe", String(precoMax));
+    if (anoMin) {
+      params.set("rs", String(anoMin));
+      params.set("re", String(anoMin + 1));
+    }
 
-    return "https://www.olx.com.br/autos-e-pecas/carros-vans-e-utilitarios?" + params.toString();
+    if (hasStrong) {
+      return "https://mg.olx.com.br/belo-horizonte-e-regiao/autos-e-pecas/carros-vans-e-utilitarios?" + params.toString();
+    }
+
+    var fallbackParams = new URLSearchParams();
+    fallbackParams.set("q", fallbackQuery);
+    return "https://mg.olx.com.br/belo-horizonte-e-regiao/autos-e-pecas/carros-vans-e-utilitarios?" + fallbackParams.toString();
   }
 
   function buildMobiautoUrl(car) {
-    var precoAte = car.precoMax || "";
-    var marcaPath = slugifyPath(car.marca);
-    var modeloPath = slugifyPath(car.familia);
+    var pesquisa = (car && car.pesquisa && car.pesquisa.mobiauto) || {};
+    var anoMin = pesquisa.anoMin || "";
+    var precoMax = pesquisa.precoMax || car.precoMax || "";
+    var marcaSlug = pesquisa.marcaSlug || slugifyPath(car.marca);
+    var modeloSlug = pesquisa.modeloSlug || slugifyPath(car.familia);
+    var transmission = (pesquisa.transmissionTokens && pesquisa.transmissionTokens.mobiauto) || "cambio-automatico";
+    var fallbackQuery = pesquisa.fallbackQuery || (car.marca + " " + car.familia + " automatico belo horizonte");
 
-    return "https://www.mobiauto.com.br/comprar/carros-usados/rj-macae/" +
-      marcaPath + "/" + modeloPath + "/s/cambio-automatico/preco-ate-" + String(precoAte);
+    if (marcaSlug && modeloSlug && anoMin) {
+      var basePath = "https://www.mobiauto.com.br/comprar/carros-usados/mg-belo-horizonte/" + marcaSlug + "/" + modeloSlug;
+      var filtros = ["ano-de-" + String(anoMin), transmission];
+      if (precoMax) filtros.push("preco-ate-" + String(precoMax));
+      if (pesquisa.versaoSlug) filtros.push("versao-" + pesquisa.versaoSlug);
+      return basePath + "/s/" + filtros.join("/");
+    }
+
+    var fallbackParams = new URLSearchParams();
+    fallbackParams.set("q", fallbackQuery);
+    return "https://www.mobiauto.com.br/comprar/carros-usados?" + fallbackParams.toString();
   }
 
   function buildICarrosUrl(car) {
-    var anos = parseAnoRange(car.anosIdeais);
-    var anoInicial = anos.inicio || "";
-    var precoAte = car.precoMax || "";
-    var q = car.marca + " " + car.familia + " automatico";
+    var pesquisa = (car && car.pesquisa && car.pesquisa.icarros) || {};
+    var anoMin = pesquisa.anoMin || "";
+    var precoMax = pesquisa.precoMax || car.precoMax || "";
+    var transmission = (pesquisa.transmissionTokens && pesquisa.transmissionTokens.icarros) || "automatico";
+    var fallbackQuery = pesquisa.fallbackQuery || (car.marca + " " + car.familia + " automatico belo horizonte");
+    var query = [car.marca, car.familia, pesquisa.versaoSlug || "", transmission, "belo horizonte"].join(" ").trim().replace(/\s+/g, " ");
+    var hasStrong = !!(pesquisa.marcaSlug && pesquisa.modeloSlug && transmission);
 
     var sop = "esc_4.1_";
-    if (anoInicial) sop += "-ami_" + String(anoInicial) + ".1_";
-    if (precoAte) sop += "-prf_" + String(precoAte) + ".1_";
+    if (anoMin) sop += "-ami_" + String(anoMin) + ".1_";
+    if (precoMax) sop += "-prf_" + String(precoMax) + ".1_";
     sop += "-cam_true.1_-";
 
     var params = new URLSearchParams();
     params.set("bid", "1");
-    params.set("q", q);
+    params.set("q", query || fallbackQuery);
     params.set("sop", sop);
 
-    return "https://www.icarros.com.br/ache/listaanuncios.jsp?" + params.toString();
+    if (hasStrong) {
+      return "https://www.icarros.com.br/ache/listaanuncios.jsp?" + params.toString();
+    }
+
+    var fallbackParams = new URLSearchParams();
+    fallbackParams.set("bid", "1");
+    fallbackParams.set("q", fallbackQuery);
+    return "https://www.icarros.com.br/ache/listaanuncios.jsp?" + fallbackParams.toString();
+  }
+
+  function getPortalSearchQuality(car, portal) {
+    var pesquisa = car && car.pesquisa ? car.pesquisa[portal] : null;
+    if (!pesquisa) return "Busca otimizada";
+
+    if (portal === "webmotors") {
+      if (pesquisa.marcaSlug && pesquisa.modeloSlug && pesquisa.anoMin && pesquisa.precoMax && pesquisa.transmissionTokens && pesquisa.transmissionTokens.webmotors) {
+        return "Busca precisa";
+      }
+      return "Busca otimizada";
+    }
+
+    if (portal === "icarros") {
+      if (pesquisa.marcaSlug && pesquisa.modeloSlug && pesquisa.transmissionTokens && pesquisa.transmissionTokens.icarros) {
+        return "Busca precisa";
+      }
+      return "Busca otimizada";
+    }
+
+    if (portal === "olx") {
+      if (pesquisa.marcaSlug && pesquisa.modeloSlug && pesquisa.anoMin && pesquisa.transmissionTokens && pesquisa.transmissionTokens.olx) {
+        return "Busca precisa";
+      }
+      return "Busca otimizada";
+    }
+
+    if (portal === "mobiauto") {
+      if (pesquisa.marcaSlug && pesquisa.modeloSlug && pesquisa.anoMin && pesquisa.precoMax && pesquisa.transmissionTokens && pesquisa.transmissionTokens.mobiauto) {
+        return "Busca precisa";
+      }
+      return "Busca otimizada";
+    }
+
+    return "Busca otimizada";
   }
 
   function buildUrls(car) {
@@ -223,6 +299,12 @@
       olx: buildOlxUrl(car),
       mobiauto: buildMobiautoUrl(car),
       icarros: buildICarrosUrl(car),
+      qualidade: {
+        webmotors: getPortalSearchQuality(car, "webmotors"),
+        olx: getPortalSearchQuality(car, "olx"),
+        mobiauto: getPortalSearchQuality(car, "mobiauto"),
+        icarros: getPortalSearchQuality(car, "icarros")
+      },
       guia: car.links.guia,
       referencia: car.links.referencia
     };
@@ -389,10 +471,10 @@
 
     var html =
       '<nav class="sheet-links" aria-label="Pesquisar ' + m.familia + '">' +
-        sheetLinkHTML(urls.webmotors, "🚗", "wm", "Webmotors", "Anúncios de " + m.familia) +
-        sheetLinkHTML(urls.olx, "🏷️", "olx", "OLX", "Classificados") +
-        sheetLinkHTML(urls.mobiauto, "🔎", "mob", "Mobiauto", "Buscar modelo") +
-        sheetLinkHTML(urls.icarros, "📋", "ic", "iCarros", "Ver ofertas") +
+        sheetLinkHTML(urls.webmotors, "🚗", "wm", "Webmotors", "Anúncios de " + m.familia, urls.qualidade.webmotors) +
+        sheetLinkHTML(urls.olx, "🏷️", "olx", "OLX", "Classificados", urls.qualidade.olx) +
+        sheetLinkHTML(urls.mobiauto, "🔎", "mob", "Mobiauto", "Buscar modelo", urls.qualidade.mobiauto) +
+        sheetLinkHTML(urls.icarros, "📋", "ic", "iCarros", "Ver ofertas", urls.qualidade.icarros) +
         sheetLinkHTML(urls.guia, "📺", "gui", "Guia em vídeo", "YouTube reviews") +
         sheetLinkHTML(urls.referencia, "📊", "ref", "Referência FIPE", "Tabela oficial") +
       '</nav>';
@@ -439,12 +521,23 @@
     state.sheetAnchor = null;
   }
 
-  function sheetLinkHTML(href, ico, cls, label, sub) {
+  function sheetLinkHTML(href, ico, cls, label, sub, quality) {
+    var qualityHTML = quality ? '<span class="portal-quality">' + quality + '</span>' : "";
     return '<a class="sheet-link" href="' + href + '" target="_blank" rel="noopener">' +
       '<span class="link-ico ' + cls + '" aria-hidden="true">' + ico + '</span>' +
       '<span class="sheet-link-label">' + label +
         '<span class="sheet-link-sub">' + sub + '</span>' +
+        qualityHTML +
       '</span>' +
+    '</a>';
+  }
+
+  function detailPortalLinkHTML(href, label, quality, primary) {
+    var btnClass = primary ? "btn btn-primary portal-btn" : "btn btn-secondary portal-btn";
+    var qualityHTML = quality ? '<span class="portal-quality">' + quality + '</span>' : "";
+    return '<a class="' + btnClass + '" href="' + href + '" target="_blank" rel="noopener">' +
+      '<span class="portal-btn-main">' + label + '</span>' +
+      qualityHTML +
     '</a>';
   }
 
@@ -529,10 +622,10 @@
 
       /* Research links */
       '<div class="detail-research">' +
-        '<a class="btn btn-primary" href="' + urls.webmotors + '" target="_blank" rel="noopener">🚗 Webmotors</a>' +
-        '<a class="btn btn-secondary" href="' + urls.olx + '" target="_blank" rel="noopener">🏷️ OLX</a>' +
-        '<a class="btn btn-secondary" href="' + urls.mobiauto + '" target="_blank" rel="noopener">🔎 Mobiauto</a>' +
-        '<a class="btn btn-secondary" href="' + urls.icarros + '" target="_blank" rel="noopener">📋 iCarros</a>' +
+        detailPortalLinkHTML(urls.webmotors, "🚗 Webmotors", urls.qualidade.webmotors, true) +
+        detailPortalLinkHTML(urls.olx, "🏷️ OLX", urls.qualidade.olx, false) +
+        detailPortalLinkHTML(urls.mobiauto, "🔎 Mobiauto", urls.qualidade.mobiauto, false) +
+        detailPortalLinkHTML(urls.icarros, "📋 iCarros", urls.qualidade.icarros, false) +
         '<a class="btn btn-secondary" href="' + urls.guia + '" target="_blank" rel="noopener">📺 Guia</a>' +
         '<a class="btn btn-secondary" href="' + urls.referencia + '" target="_blank" rel="noopener">📊 Referência</a>' +
       '</div>' +

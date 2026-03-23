@@ -459,6 +459,18 @@ body.no-scroll { overflow: hidden; }
 .sheet-link-label { display: flex; flex-direction: column; }
 .sheet-link-sub { font-size: .72rem; color: var(--text-soft); font-weight: 400; }
 
+.portal-quality {
+  margin-top: 4px;
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: .66rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
 /* Desktop popover mode */
 @media (min-width: 640px) {
   .sheet-backdrop { display: none !important; }
@@ -606,6 +618,23 @@ body.no-scroll { overflow: hidden; }
 }
 
 .detail-research .btn { font-size: .8rem; height: 38px; }
+
+.portal-btn {
+  height: auto !important;
+  min-height: 42px;
+  padding: 6px 12px;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0;
+}
+
+.portal-btn-main {
+  line-height: 1.2;
+}
+
+.detail-research .portal-quality {
+  margin-top: 3px;
+}
 
 /* FIPE collapsible section */
 .fipe-section { margin-bottom: 24px; }

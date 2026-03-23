@@ -35,6 +35,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=hb20+1.6+automatico+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "hyundai",
+        modeloSlug: "hb20",
+        versaoSlug: "1-6",
+        anoMin: 2016,
+        precoMax: 68000,
+        transmissionTokens: { webmotors: "Automática" },
+        fallbackQuery: "hyundai hb20 1.6 automatico belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "hyundai",
+        modeloSlug: "hb20",
+        versaoSlug: "1.6 automatico",
+        anoMin: 2016,
+        precoMax: 68000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "hyundai hb20 automatico belo horizonte"
+      },
+      olx: {
+        marcaSlug: "hyundai",
+        modeloSlug: "hb20",
+        versaoSlug: "1.6",
+        anoMin: 2016,
+        precoMax: 68000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "hyundai hb20 automatico belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "hyundai",
+        modeloSlug: "hb20",
+        versaoSlug: "1-6",
+        anoMin: 2016,
+        precoMax: 68000,
+        transmissionTokens: { mobiauto: "cambio-automatico" },
+        fallbackQuery: "hyundai hb20 automatico belo horizonte"
+      }
     }
   },
   {
@@ -68,6 +106,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=onix+1.4+automatico+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "chevrolet",
+        modeloSlug: "onix",
+        versaoSlug: "1-4",
+        anoMin: 2016,
+        precoMax: 62000,
+        transmissionTokens: { webmotors: "Automática" },
+        fallbackQuery: "chevrolet onix 1.4 automatico belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "chevrolet",
+        modeloSlug: "onix",
+        versaoSlug: "1.4 automatico",
+        anoMin: 2016,
+        precoMax: 62000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "onix automatico belo horizonte"
+      },
+      olx: {
+        marcaSlug: "chevrolet",
+        modeloSlug: "onix",
+        versaoSlug: "1.4",
+        anoMin: 2016,
+        precoMax: 62000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "onix automatico belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "chevrolet",
+        modeloSlug: "onix",
+        versaoSlug: "1-4",
+        anoMin: 2016,
+        precoMax: 62000,
+        transmissionTokens: { mobiauto: "cambio-automatico" },
+        fallbackQuery: "onix automatico belo horizonte"
+      }
     }
   },
   {
@@ -101,6 +177,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=peugeot+208+1.6+at6+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "peugeot",
+        modeloSlug: "208",
+        versaoSlug: "1-6-at6",
+        anoMin: 2018,
+        precoMax: 70000,
+        transmissionTokens: { webmotors: "Automática" },
+        fallbackQuery: "peugeot 208 1.6 automatico belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "peugeot",
+        modeloSlug: "208",
+        versaoSlug: "1.6 at6",
+        anoMin: 2018,
+        precoMax: 70000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "peugeot 208 automatico belo horizonte"
+      },
+      olx: {
+        marcaSlug: "peugeot",
+        modeloSlug: "208",
+        versaoSlug: "at6",
+        anoMin: 2018,
+        precoMax: 70000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "peugeot 208 at6 belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "peugeot",
+        modeloSlug: "208",
+        versaoSlug: "1-6-at6",
+        anoMin: 2018,
+        precoMax: 70000,
+        transmissionTokens: { mobiauto: "cambio-automatico" },
+        fallbackQuery: "peugeot 208 automatico belo horizonte"
+      }
     }
   },
   {
@@ -134,6 +248,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=peugeot+2008+usado+automatico+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "peugeot",
+        modeloSlug: "2008",
+        versaoSlug: "1-6-at6",
+        anoMin: 2018,
+        precoMax: 82000,
+        transmissionTokens: { webmotors: "Automática" },
+        fallbackQuery: "peugeot 2008 automatico belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "peugeot",
+        modeloSlug: "2008",
+        versaoSlug: "1.6 at6",
+        anoMin: 2018,
+        precoMax: 82000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "peugeot 2008 automatico belo horizonte"
+      },
+      olx: {
+        marcaSlug: "peugeot",
+        modeloSlug: "2008",
+        versaoSlug: "at6",
+        anoMin: 2018,
+        precoMax: 82000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "peugeot 2008 at6 belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "peugeot",
+        modeloSlug: "2008",
+        versaoSlug: "1-6-at6",
+        anoMin: 2018,
+        precoMax: 82000,
+        transmissionTokens: { mobiauto: "cambio-automatico" },
+        fallbackQuery: "peugeot 2008 automatico belo horizonte"
+      }
     }
   },
   {
@@ -167,6 +319,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=nissan+march+xtronic+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "nissan",
+        modeloSlug: "march",
+        versaoSlug: "1-6-xtronic",
+        anoMin: 2017,
+        precoMax: 60000,
+        transmissionTokens: { webmotors: "CVT" },
+        fallbackQuery: "nissan march xtronic belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "nissan",
+        modeloSlug: "march",
+        versaoSlug: "xtronic",
+        anoMin: 2017,
+        precoMax: 60000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "nissan march xtronic belo horizonte"
+      },
+      olx: {
+        marcaSlug: "nissan",
+        modeloSlug: "march",
+        versaoSlug: "xtronic",
+        anoMin: 2017,
+        precoMax: 60000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "nissan march xtronic belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "nissan",
+        modeloSlug: "march",
+        versaoSlug: "xtronic",
+        anoMin: 2017,
+        precoMax: 60000,
+        transmissionTokens: { mobiauto: "cambio-cvt" },
+        fallbackQuery: "nissan march xtronic belo horizonte"
+      }
     }
   },
   {
@@ -200,6 +390,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=nissan+versa+xtronic+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "nissan",
+        modeloSlug: "versa",
+        versaoSlug: "1-6-xtronic",
+        anoMin: 2018,
+        precoMax: 72000,
+        transmissionTokens: { webmotors: "CVT" },
+        fallbackQuery: "nissan versa xtronic belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "nissan",
+        modeloSlug: "versa",
+        versaoSlug: "xtronic",
+        anoMin: 2018,
+        precoMax: 72000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "nissan versa xtronic belo horizonte"
+      },
+      olx: {
+        marcaSlug: "nissan",
+        modeloSlug: "versa",
+        versaoSlug: "xtronic",
+        anoMin: 2018,
+        precoMax: 72000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "nissan versa xtronic belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "nissan",
+        modeloSlug: "versa",
+        versaoSlug: "xtronic",
+        anoMin: 2018,
+        precoMax: 72000,
+        transmissionTokens: { mobiauto: "cambio-cvt" },
+        fallbackQuery: "nissan versa xtronic belo horizonte"
+      }
     }
   },
   {
@@ -233,6 +461,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=toyota+etios+1.5+automatico+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "toyota",
+        modeloSlug: "etios",
+        versaoSlug: "1-5",
+        anoMin: 2017,
+        precoMax: 72000,
+        transmissionTokens: { webmotors: "Automática" },
+        fallbackQuery: "toyota etios 1.5 automatico belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "toyota",
+        modeloSlug: "etios",
+        versaoSlug: "1.5 automatico",
+        anoMin: 2017,
+        precoMax: 72000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "toyota etios automatico belo horizonte"
+      },
+      olx: {
+        marcaSlug: "toyota",
+        modeloSlug: "etios",
+        versaoSlug: "1.5",
+        anoMin: 2017,
+        precoMax: 72000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "toyota etios automatico belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "toyota",
+        modeloSlug: "etios",
+        versaoSlug: "1-5",
+        anoMin: 2017,
+        precoMax: 72000,
+        transmissionTokens: { mobiauto: "cambio-automatico" },
+        fallbackQuery: "toyota etios automatico belo horizonte"
+      }
     }
   },
   {
@@ -266,6 +532,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=honda+fit+cvt+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "honda",
+        modeloSlug: "fit",
+        versaoSlug: "1-5-cvt",
+        anoMin: 2015,
+        precoMax: 82000,
+        transmissionTokens: { webmotors: "CVT" },
+        fallbackQuery: "honda fit cvt belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "honda",
+        modeloSlug: "fit",
+        versaoSlug: "cvt",
+        anoMin: 2015,
+        precoMax: 82000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "honda fit cvt belo horizonte"
+      },
+      olx: {
+        marcaSlug: "honda",
+        modeloSlug: "fit",
+        versaoSlug: "cvt",
+        anoMin: 2015,
+        precoMax: 82000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "honda fit cvt belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "honda",
+        modeloSlug: "fit",
+        versaoSlug: "cvt",
+        anoMin: 2015,
+        precoMax: 82000,
+        transmissionTokens: { mobiauto: "cambio-cvt" },
+        fallbackQuery: "honda fit cvt belo horizonte"
+      }
     }
   },
   {
@@ -299,6 +603,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=honda+city+cvt+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "honda",
+        modeloSlug: "city",
+        versaoSlug: "1-5-cvt",
+        anoMin: 2015,
+        precoMax: 85000,
+        transmissionTokens: { webmotors: "CVT" },
+        fallbackQuery: "honda city cvt belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "honda",
+        modeloSlug: "city",
+        versaoSlug: "cvt",
+        anoMin: 2015,
+        precoMax: 85000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "honda city cvt belo horizonte"
+      },
+      olx: {
+        marcaSlug: "honda",
+        modeloSlug: "city",
+        versaoSlug: "cvt",
+        anoMin: 2015,
+        precoMax: 85000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "honda city cvt belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "honda",
+        modeloSlug: "city",
+        versaoSlug: "cvt",
+        anoMin: 2015,
+        precoMax: 85000,
+        transmissionTokens: { mobiauto: "cambio-cvt" },
+        fallbackQuery: "honda city cvt belo horizonte"
+      }
     }
   },
   {
@@ -332,6 +674,44 @@ const MODELOS = [
     links: {
       guia: "https://www.youtube.com/results?search_query=polo+1.6+msi+automatico+usado+review",
       referencia: "https://veiculos.fipe.org.br/"
+    },
+    pesquisa: {
+      webmotors: {
+        marcaSlug: "volkswagen",
+        modeloSlug: "polo",
+        versaoSlug: "1-6-msi-at",
+        anoMin: 2018,
+        precoMax: 80000,
+        transmissionTokens: { webmotors: "Automática" },
+        fallbackQuery: "volkswagen polo 1.6 automatico belo horizonte"
+      },
+      icarros: {
+        marcaSlug: "volkswagen",
+        modeloSlug: "polo",
+        versaoSlug: "1.6 msi automatico",
+        anoMin: 2018,
+        precoMax: 80000,
+        transmissionTokens: { icarros: "automatico" },
+        fallbackQuery: "polo 1.6 automatico belo horizonte"
+      },
+      olx: {
+        marcaSlug: "volkswagen",
+        modeloSlug: "polo",
+        versaoSlug: "1.6 msi",
+        anoMin: 2018,
+        precoMax: 80000,
+        transmissionTokens: { olx: "automatico" },
+        fallbackQuery: "polo 1.6 automatico belo horizonte"
+      },
+      mobiauto: {
+        marcaSlug: "volkswagen",
+        modeloSlug: "polo",
+        versaoSlug: "1-6-msi",
+        anoMin: 2018,
+        precoMax: 80000,
+        transmissionTokens: { mobiauto: "cambio-automatico" },
+        fallbackQuery: "polo automatico belo horizonte"
+      }
     }
   }
 ];
